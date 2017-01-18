@@ -1,0 +1,11 @@
+<div style="width:500px; margin:auto">
+	<p id="notice"><%= notice %></p>
+	<div>
+		<h2><%= @note.description %></h2>
+		<%= render "versions"%>
+	</div>
+	<div>
+		<%= link_to 'Edit', edit_note_path(@note) %> |
+		<%= link_to 'Back', notes_path %>
+	</div>
+</div>
