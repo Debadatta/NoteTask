@@ -44,4 +44,20 @@ RSpec.feature "Note management", :type => :feature do
 	    expect(page).to_not have_content note.description
 	  end
   end
+
+  scenario "The user can see Previous Versions" do
+  		@note= Note.last 
+ 
+	  Factory(:note, :description => "My first description")
+	  Factory(:note, :description => "My second description")
+	  Factory(:note, :description => "My third description")
+
+	  visit note_path(@note)
+
+	  within(".table") do
+	    find(:xpath, './/tr[1]')
+	    find(:xpath, './/tr[2]')
+	    find(:xpath, './/tr[3]')
+	  end
+	end
 end
