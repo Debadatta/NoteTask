@@ -10,12 +10,27 @@ RSpec.feature "Note management", :type => :feature do
     expect(page).to have_text("Note was successfully created.")
   end
 
-  scenario "User view show note page" do
-    visit "/notes/:id"
+  scenario "User edits a new note" do
+  	@note = Note.last
+  	visit "/notes/#{@note.id}/edit"
 
-    fill_in "note_description", :with => "My new idea"
+  	expect(page).to have_content 'Editing Note'
+
+    fill_in "note_description", :with => "My new edit idea"
     click_button "Save"
 
-    expect(page).to have_text("Note was successfully created.")
+    expect(page).to have_text("Note was successfully updated.")
+  end
+
+  scenario "User edits a new note" do
+  	@note = Note.last
+  	visit "/notes/#{@note.id}/edit"
+
+  	expect(page).to have_content 'Editing Note'
+
+    fill_in "note_description", :with => "My new edit idea"
+    click_button "Save"
+
+    expect(page).to have_text("Note was successfully updated.")
   end
 end
