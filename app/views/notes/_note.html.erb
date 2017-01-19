@@ -1,5 +1,5 @@
 <tr>
-  <td class="width:200px"><%= note.description %></td>
+  <td><%= note.description %></td>
   <td><%= link_to 'Show', note_path(note)%> | <%= link_to 'Edit', edit_note_path(note)%> |
-  <%= link_to 'Remove', note_path(note), :method => 'delete', :data => {:confirm => 'Are you sure you want to delete this note?'} %></td>
+  <%= link_to 'Remove', note_path(note), :method => 'delete', :data => {:confirm => 'Are you sure you want to delete this note?'}, :class=>'remove' %></td>
 </tr>

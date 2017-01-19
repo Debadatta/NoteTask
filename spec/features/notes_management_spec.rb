@@ -33,4 +33,15 @@ RSpec.feature "Note management", :type => :feature do
 
     expect(page).to have_text("Note was successfully updated.")
   end
+
+  feature 'User deletes note' do
+  	given!(:note) { Note.create!( description: 'This is a description.') }
+ 
+	  scenario do
+	    visit notes_path
+	    first('.remove').click
+	    expect(page).to have_content 'The note was deleted successfully'
+	    expect(page).to_not have_content note.description
+	  end
+  end
 end
