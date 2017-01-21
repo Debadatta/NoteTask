@@ -57,6 +57,25 @@ RSpec.feature "Note management", :type => :feature do
 
      visit note_path(note)
 	   expect(page).to have_content("Rollback", count: 3)
-	end
+	  end
+  end
+
+  feature 'User edit the Previous version' do
+    given!(:note) { Note.create!( description: 'This is a first description.')}
+
+    scenario  do
+      note.description = 'This is a second edit.'
+      note.save!
+      note.description = "This is a third edit."
+      note.save!
+      
+      visit note_path(note)
+
+      expect(page).to have_content("Rollback", count: 3)
+
+      first(:link, "Rollback").click
+
+      expect(page).to have_content "This is a second edit."
+    end
   end
 end
