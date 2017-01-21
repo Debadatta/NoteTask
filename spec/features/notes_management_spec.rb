@@ -45,19 +45,18 @@ RSpec.feature "Note management", :type => :feature do
 	  end
   end
 
-  scenario "The user can see Previous Versions" do
-  		@note= Note.last 
- 
-	  Factory(:note, :description => "My first description")
-	  Factory(:note, :description => "My second description")
-	  Factory(:note, :description => "My third description")
+  feature 'User see Previous versions' do
+    given!(:note) { @note = Note.create!( description: 'This is a first description.') }
+    
+    scenario "The user can see Previous Versions" do
+	   note.description = 'This is a second description.'
+     note.save!
+     note.description = 'This is a third description.'
+     note.save!
+	   
 
-	  visit note_path(@note)
-
-	  within(".table") do
-	    find(:xpath, './/tr[1]')
-	    find(:xpath, './/tr[2]')
-	    find(:xpath, './/tr[3]')
-	  end
+     visit note_path(note)
+	   expect(page).to have_content("Rollback", count: 3)
 	end
+  end
 end
